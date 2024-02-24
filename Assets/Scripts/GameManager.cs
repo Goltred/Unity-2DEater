@@ -1,3 +1,4 @@
+using Unity.Collections;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -9,6 +10,9 @@ public class GameManager : MonoBehaviour
     private float _levelTimer;
     private float _spawnTimer;
     private float _uiTimer;
+
+    [ReadOnly]
+    public int playerPoints;
 
     void Start()
     {
@@ -47,5 +51,10 @@ public class GameManager : MonoBehaviour
     void RestartSpawnTimer()
     {
         _spawnTimer = Random.Range(gameSettings.minSpawnTime, gameSettings.maxSpawnTime);
+    }
+
+    public void EdibleEaten(Edible edible)
+    {
+        playerPoints += edible.data.points;
     }
 }

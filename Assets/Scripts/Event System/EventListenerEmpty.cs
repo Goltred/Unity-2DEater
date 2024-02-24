@@ -1,2 +1,1 @@
-
-public class EventListenerEmpty: EventListener<object> {}
+﻿public class EventListenerEmpty: EventListener<object> {}

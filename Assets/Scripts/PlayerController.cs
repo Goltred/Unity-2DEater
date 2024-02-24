@@ -5,6 +5,7 @@ using UnityEngine.InputSystem;
 public class PlayerController : MonoBehaviour
 {
     public float movementSpeed = 5f;
+    public GameEventEdible onEdibleEaten;
     private Vector2 _input;
     private SpriteRenderer _spriteRenderer;
     private float _spriteHalfSize;
@@ -21,7 +22,7 @@ public class PlayerController : MonoBehaviour
         _rightEdgeWorldPos = Camera.main.ViewportToWorldPoint(Vector3.one).x;
     }
     
-    // Assigned in the inspector
+    // Assigned in the PlayerInput controller in the inspector
     public void OnMove(InputAction.CallbackContext context)
     {
         _input = context.ReadValue<Vector2>();
@@ -46,8 +47,15 @@ public class PlayerController : MonoBehaviour
 
     private void EnsureInsidePlayArea()
     {
-        // Make sure we are always inside the play area
         var xValue = Mathf.Clamp(transform.position.x, _leftEdgeWorldPos + _spriteHalfSize, _rightEdgeWorldPos - _spriteHalfSize);
         transform.position = new Vector3(xValue, transform.position.y, transform.position.z);
+    }
+
+    private void OnTriggerEnter2D(Collider2D col)
+    {
+        // We only want to trigger the event when the other collision is an Edible.
+        // This prepares us for the future in case we add other types that need to trigger different events
+        if (col.gameObject.TryGetComponent<Edible>(out var edible))
+            onEdibleEaten?.Trigger(edible);
     }
 }

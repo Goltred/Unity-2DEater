@@ -10,6 +10,7 @@ public class EdibleSpawner : MonoBehaviour
     private int _ediblesUpperLimit;
     private Vector3 _topRightField;
     private Vector3 _bottomLeftField;
+    private Vector3 _outsideField;
 
     private GameSettingsSO _settings;
 
@@ -17,6 +18,7 @@ public class EdibleSpawner : MonoBehaviour
     {
         _bottomLeftField = Camera.main.ViewportToWorldPoint(Vector3.zero);
         _topRightField = Camera.main.ViewportToWorldPoint(Vector3.one);
+        _outsideField = _topRightField * 2;
         _ediblesUpperLimit = ediblePrefabs.Count - 1;
     }
 
@@ -60,25 +62,20 @@ public class EdibleSpawner : MonoBehaviour
     }
 
     // Used from the EventListener to be triggered when an object is out of bounds
-    public void RecycleEdible(GameObject edible)
+    public void RecycleEdible(Edible edible)
     {
-        if (!edible.TryGetComponent<Edible>(out var component))
+        if (_prefabPool.TryGetValue(edible.data.poolId, out var stack))
         {
-            // This is not the edible we are looking for
-            return;
-        }
-        
-        if (_prefabPool.TryGetValue(component.data.poolId, out var stack))
-        {
-            stack.Push(component);
+            stack.Push(edible);
         }
         else
         {
             var newStack = new Stack<Edible>();
-            newStack.Push(component);
-            _prefabPool[component.data.poolId] = newStack;
+            newStack.Push(edible);
+            _prefabPool[edible.data.poolId] = newStack;
         }
         
-        component.DisableMovement();
+        edible.DisableMovement();
+        edible.transform.position = _outsideField;
     }
 }

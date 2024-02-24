@@ -136,8 +136,9 @@ GameObject:
   - component: {fileID: 233069569}
   - component: {fileID: 233069568}
   - component: {fileID: 233069572}
+  - component: {fileID: 233069573}
   m_Layer: 0
-  m_Name: Circle
+  m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -266,7 +267,7 @@ CircleCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -352,6 +353,34 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movementSpeed: 5
+  onEdibleEaten: {fileID: 11400000, guid: 6def01b5870fae54e8ec5b1f16493a36, type: 2}
+--- !u!50 &233069573
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 233069567}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &305015262
 GameObject:
   m_ObjectHideFlags: 0
@@ -428,7 +457,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5980aa37ea558d642aaa83797f34b0a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  onOutOfBounds: {fileID: 11400000, guid: 7cb691bcb78f65a4a9818323e386f6da, type: 2}
+  onOutOfBounds: {fileID: 11400000, guid: 144206839ed1dcc4d8642f99d26a4552, type: 2}
 --- !u!4 &305015265
 Transform:
   m_ObjectHideFlags: 0
@@ -563,6 +592,39 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &641744192
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 641744193}
+  m_Layer: 0
+  m_Name: Systems
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &641744193
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 641744192}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 5.4978814, y: -2.8478887, z: -0.25342438}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 2108988051}
+  - {fileID: 1509795409}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1509795407
 GameObject:
   m_ObjectHideFlags: 0
@@ -573,6 +635,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1509795409}
   - component: {fileID: 1509795408}
+  - component: {fileID: 1509795410}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -595,6 +658,7 @@ MonoBehaviour:
   gameSettings: {fileID: 11400000, guid: 89540366325d87f4eb9e856ab6ce8471, type: 2}
   onSpawnEvent: {fileID: 11400000, guid: 35c648f4aa262e5469511d44f4875d37, type: 2}
   onGameSettingsChangeEvent: {fileID: 11400000, guid: 06183c0c3e6afb543968ed1b1cfd1b25, type: 2}
+  playerPoints: 0
 --- !u!4 &1509795409
 Transform:
   m_ObjectHideFlags: 0
@@ -603,13 +667,41 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1509795407}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.4982924, y: -2.000557, z: -0.1365691}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -8.996174, y: 0.84733176, z: 0.11685528}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 641744193}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1509795410
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1509795407}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 19404f1c97bc481091e686a3dcb0bb0d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameEvent: {fileID: 11400000, guid: 6def01b5870fae54e8ec5b1f16493a36, type: 2}
+  eventTriggered:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1509795408}
+        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+        m_MethodName: 
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &2108988048
 GameObject:
   m_ObjectHideFlags: 0
@@ -621,8 +713,9 @@ GameObject:
   - component: {fileID: 2108988051}
   - component: {fileID: 2108988050}
   - component: {fileID: 2108988049}
-  - component: {fileID: 2108988052}
   - component: {fileID: 2108988053}
+  - component: {fileID: 2108988054}
+  - component: {fileID: 2108988055}
   m_Layer: 0
   m_Name: Spawner
   m_TagString: Untagged
@@ -639,7 +732,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2108988048}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 385751974f49e8c42a7a35e22b43f336, type: 3}
+  m_Script: {fileID: 11500000, guid: 5f444fb1c71b4b659d847b9eea32304a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   gameEvent: {fileID: 11400000, guid: 35c648f4aa262e5469511d44f4875d37, type: 2}
@@ -680,41 +773,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2108988048}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.4982924, y: 7.83, z: -0.1365691}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -8.996174, y: 10.677889, z: 0.11685528}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 641744193}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2108988052
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2108988048}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: be4a56b8f7745c9469a437b04b6aa757, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gameEvent: {fileID: 11400000, guid: 7cb691bcb78f65a4a9818323e386f6da, type: 2}
-  eventTriggered:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 2108988050}
-        m_TargetAssemblyTypeName: EdibleSpawner, Assembly-CSharp
-        m_MethodName: RecycleEdible
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!114 &2108988053
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -724,7 +789,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2108988048}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3fefc450017a425b9342e7b6a1068df6, type: 3}
+  m_Script: {fileID: 11500000, guid: bbf18d9bba1146bfb3d328960a15e7dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   gameEvent: {fileID: 11400000, guid: 06183c0c3e6afb543968ed1b1cfd1b25, type: 2}
@@ -743,6 +808,62 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &2108988054
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2108988048}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 19404f1c97bc481091e686a3dcb0bb0d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameEvent: {fileID: 11400000, guid: 144206839ed1dcc4d8642f99d26a4552, type: 2}
+  eventTriggered:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2108988050}
+        m_TargetAssemblyTypeName: EdibleSpawner, Assembly-CSharp
+        m_MethodName: 
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &2108988055
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2108988048}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 19404f1c97bc481091e686a3dcb0bb0d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameEvent: {fileID: 11400000, guid: 6def01b5870fae54e8ec5b1f16493a36, type: 2}
+  eventTriggered:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2108988050}
+        m_TargetAssemblyTypeName: EdibleSpawner, Assembly-CSharp
+        m_MethodName: RecycleEdible
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -750,5 +871,4 @@ SceneRoots:
   - {fileID: 519420032}
   - {fileID: 233069571}
   - {fileID: 305015265}
-  - {fileID: 2108988051}
-  - {fileID: 1509795409}
+  - {fileID: 641744193}

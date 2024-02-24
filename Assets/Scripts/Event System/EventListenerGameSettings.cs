@@ -1,1 +1,1 @@
-public class EventListenerGameSettings: EventListener<GameSettingsSO> {}
+﻿public class EventListenerGameSettings: EventListener<GameSettingsSO> {}
