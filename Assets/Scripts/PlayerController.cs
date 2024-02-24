@@ -2,12 +2,14 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(SpriteRenderer))]
+[RequireComponent(typeof(PlayerInput))]
 public class PlayerController : MonoBehaviour
 {
     public float movementSpeed = 5f;
     public GameEventEdible onEdibleEaten;
     private Vector2 _input;
     private SpriteRenderer _spriteRenderer;
+    private PlayerInput _playerInput;
     private float _spriteHalfSize;
     private float _leftEdgeWorldPos;
     private float _rightEdgeWorldPos;
@@ -15,7 +17,7 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         _spriteRenderer = GetComponent<SpriteRenderer>();
-        
+        _playerInput = GetComponent<PlayerInput>();
         // Used for calculating out of world bounds
         _spriteHalfSize = _spriteRenderer.size.x / 2;
         _leftEdgeWorldPos = Camera.main.ViewportToWorldPoint(Vector3.zero).x;
@@ -57,5 +59,15 @@ public class PlayerController : MonoBehaviour
         // This prepares us for the future in case we add other types that need to trigger different events
         if (col.gameObject.TryGetComponent<Edible>(out var edible))
             onEdibleEaten?.Trigger(edible);
+    }
+
+    public void GameOver(int _)
+    {
+        _playerInput.enabled = false;
+    }
+
+    public void StartGame(int _)
+    {
+        _playerInput.enabled = true;
     }
 }
