@@ -2,44 +2,42 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    [Header("Level Settings")]
-    public float LevelTime = 60f;
+    public GameSettingsSO gameSettings;
+    public GameEventEmpty onSpawnEvent;
+    public GameEventGameSettings onGameSettingsChangeEvent;
 
-    [Header("Spawn Settings")]
-    public float MinSpawnTime = 3f;
-    public float MaxSpawnTime = 6f;
-    public GameEventEmpty OnSpawnEvent;
-    
-    private float spawnTimer;
-    private float uiTimer;
+    private float _levelTimer;
+    private float _spawnTimer;
+    private float _uiTimer;
 
     void Start()
     {
         RestartSpawnTimer();
         // Reduce the initial spawn timer so that we start playing early but still with some randomness
-        spawnTimer -= 3;
+        _spawnTimer -= 3;
+        _levelTimer = gameSettings.levelTime;
     }
 
     // Update is called once per frame
     void Update()
     {
-        spawnTimer -= Time.deltaTime;
-        LevelTime -= Time.deltaTime;
-        uiTimer -= Time.deltaTime;
+        _spawnTimer -= Time.deltaTime;
+        _levelTimer -= Time.deltaTime;
+        _uiTimer -= Time.deltaTime;
         
-        if (spawnTimer <= 0)
+        if (_spawnTimer <= 0)
         {
-            OnSpawnEvent?.Trigger(null);
+            onSpawnEvent?.Trigger(null);
             RestartSpawnTimer();
         }
 
-        if (uiTimer <= 0)
+        if (_uiTimer <= 0)
         {
             //OnUIRefreshEvent?.Trigger();
-            uiTimer = 1;
+            _uiTimer = 1;
         }
 
-        if (LevelTime <= 0)
+        if (_levelTimer <= 0)
         {
             //OnEndGameEvent?.Trigger();
         }
@@ -47,6 +45,6 @@ public class GameManager : MonoBehaviour
 
     void RestartSpawnTimer()
     {
-        spawnTimer = Random.Range(MinSpawnTime, MaxSpawnTime);
+        _spawnTimer = Random.Range(gameSettings.minSpawnTime, gameSettings.maxSpawnTime);
     }
 }

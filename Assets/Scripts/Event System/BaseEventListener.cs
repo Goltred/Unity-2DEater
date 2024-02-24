@@ -3,17 +3,17 @@ using UnityEngine.Events;
 
 public abstract class EventListener<T>: MonoBehaviour
 {
-    public GameEvent<T> GameEvent;
+    public GameEvent<T> gameEvent;
     public UnityEvent<T> eventTriggered;
 
     private void OnEnable()
     {
-        GameEvent.AddListener(this);
+        gameEvent.AddListener(this);
     }
 
     private void OnDisable()
     {
-        GameEvent.RemoveListener(this);
+        gameEvent.RemoveListener(this);
     }
 
     public void OnEventTriggered(T objectType)

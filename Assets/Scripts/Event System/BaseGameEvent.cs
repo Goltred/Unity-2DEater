@@ -4,11 +4,11 @@ using UnityEngine;
 // Base class for triggering events that will also send a specific object as an argument
 public abstract class GameEvent<T> : ScriptableObject
 {
-    private List<EventListener<T>> listeners = new List<EventListener<T>>();
+    private List<EventListener<T>> _listeners = new List<EventListener<T>>();
 
     public void Trigger(T objectType)
     {
-        foreach (var listener in listeners)
+        foreach (var listener in _listeners)
         {
             listener.OnEventTriggered(objectType);
         }
@@ -16,11 +16,11 @@ public abstract class GameEvent<T> : ScriptableObject
 
     public void AddListener(EventListener<T> listener)
     {
-        listeners.Add(listener);
+        _listeners.Add(listener);
     }
 
     public void RemoveListener(EventListener<T> listener)
     {
-        listeners.Remove(listener);
+        _listeners.Remove(listener);
     }
 }

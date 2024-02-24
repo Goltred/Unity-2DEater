@@ -4,10 +4,10 @@ using UnityEngine;
 public class EdibleData : ScriptableObject
 {
     [Tooltip("Identifier to be used for recycling purposes. Each different edible should have a different PoolId")]
-    public int PoolId;
+    public int poolId;
     
     [Tooltip("Amount of points to give to the player when eaten")]
-    public int Points;
+    public int points;
 }
 
 // When spawning edibles we need to make sure a SpriteRenderer is there, so setup requirements here to not
@@ -18,7 +18,7 @@ public class EdibleData : ScriptableObject
 [RequireComponent(typeof(MoveDown))]
 public class Edible : MonoBehaviour
 {
-    public EdibleData Data;
+    public EdibleData data;
 
     private MoveDown _moveDown;
     private SpriteRenderer _spriteRenderer;
@@ -27,6 +27,11 @@ public class Edible : MonoBehaviour
     {
         _moveDown = GetComponent<MoveDown>();
         _spriteRenderer = GetComponent<SpriteRenderer>();
+    }
+
+    public void SetFallSpeed(float speed)
+    {
+        _moveDown.fallSpeed = speed;
     }
     
     public void DisableMovement()

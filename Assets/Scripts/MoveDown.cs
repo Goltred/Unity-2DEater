@@ -2,11 +2,11 @@
 
 public class MoveDown : MonoBehaviour
 {
-    public float FallSpeed = 4f;
+    public float fallSpeed = 4f;
 
     // Update is called once per frame
     void Update()
     {
-        transform.Translate(-transform.up * FallSpeed * Time.deltaTime);
+        transform.Translate(-transform.up * fallSpeed * Time.deltaTime);
     }
 }

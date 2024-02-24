@@ -3,10 +3,10 @@ using UnityEngine;
 [RequireComponent(typeof(BoxCollider2D))]
 public class OutOfBoundsNotifier : MonoBehaviour
 {
-    public GameEventGameObject OnOutOfBounds;
+    public GameEventGameObject onOutOfBounds;
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        OnOutOfBounds?.Trigger(other.gameObject);
+        onOutOfBounds?.Trigger(other.gameObject);
     }
 }
