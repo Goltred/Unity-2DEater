@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour
         // Reduce the initial spawn timer so that we start playing early but still with some randomness
         _spawnTimer -= 3;
         _levelTimer = gameSettings.levelTime;
+        onGameSettingsChangeEvent?.Trigger(gameSettings);
     }
 
     // Update is called once per frame

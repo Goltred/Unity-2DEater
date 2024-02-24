@@ -9,8 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 0}
-  m_Name: EdibleA
-  m_EditorClassIdentifier: Assembly-CSharp::EdibleData
-  PoolId: 0
-  Points: 1
+  m_Script: {fileID: 11500000, guid: 4428c04100969e64ca568e418ae808f3, type: 3}
+  m_Name: Normal
+  m_EditorClassIdentifier: 
+  levelTime: 60
+  minSpawnTime: 0.2
+  maxSpawnTime: 1
+  minEdibleSpeed: 3
+  maxEdibleSpeed: 7

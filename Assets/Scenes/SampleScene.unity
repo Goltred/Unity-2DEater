@@ -428,7 +428,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5980aa37ea558d642aaa83797f34b0a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  OnOutOfBounds: {fileID: 11400000, guid: 7cb691bcb78f65a4a9818323e386f6da, type: 2}
+  onOutOfBounds: {fileID: 11400000, guid: 7cb691bcb78f65a4a9818323e386f6da, type: 2}
 --- !u!4 &305015265
 Transform:
   m_ObjectHideFlags: 0
@@ -592,10 +592,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3535a8abe7ead324b9574ffbe0932646, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LevelTime: 60
-  MinSpawnTime: 0.2
-  MaxSpawnTime: 1
-  OnSpawnEvent: {fileID: 11400000, guid: 35c648f4aa262e5469511d44f4875d37, type: 2}
+  gameSettings: {fileID: 11400000, guid: 89540366325d87f4eb9e856ab6ce8471, type: 2}
+  onSpawnEvent: {fileID: 11400000, guid: 35c648f4aa262e5469511d44f4875d37, type: 2}
+  onGameSettingsChangeEvent: {fileID: 11400000, guid: 06183c0c3e6afb543968ed1b1cfd1b25, type: 2}
 --- !u!4 &1509795409
 Transform:
   m_ObjectHideFlags: 0
@@ -623,6 +622,7 @@ GameObject:
   - component: {fileID: 2108988050}
   - component: {fileID: 2108988049}
   - component: {fileID: 2108988052}
+  - component: {fileID: 2108988053}
   m_Layer: 0
   m_Name: Spawner
   m_TagString: Untagged
@@ -642,7 +642,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 385751974f49e8c42a7a35e22b43f336, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GameEvent: {fileID: 11400000, guid: 35c648f4aa262e5469511d44f4875d37, type: 2}
+  gameEvent: {fileID: 11400000, guid: 35c648f4aa262e5469511d44f4875d37, type: 2}
   eventTriggered:
     m_PersistentCalls:
       m_Calls:
@@ -670,7 +670,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8ac1020007c45b40b2bb216e27ba8fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  EdiblePrefabs:
+  ediblePrefabs:
   - {fileID: 6508822630887029540, guid: 923b65f956eb28b4aa65ab92688b2749, type: 3}
 --- !u!4 &2108988051
 Transform:
@@ -699,13 +699,41 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be4a56b8f7745c9469a437b04b6aa757, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GameEvent: {fileID: 11400000, guid: 7cb691bcb78f65a4a9818323e386f6da, type: 2}
+  gameEvent: {fileID: 11400000, guid: 7cb691bcb78f65a4a9818323e386f6da, type: 2}
   eventTriggered:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 2108988050}
         m_TargetAssemblyTypeName: EdibleSpawner, Assembly-CSharp
         m_MethodName: RecycleEdible
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &2108988053
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2108988048}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3fefc450017a425b9342e7b6a1068df6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameEvent: {fileID: 11400000, guid: 06183c0c3e6afb543968ed1b1cfd1b25, type: 2}
+  eventTriggered:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2108988050}
+        m_TargetAssemblyTypeName: EdibleSpawner, Assembly-CSharp
+        m_MethodName: ChangeSettings
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

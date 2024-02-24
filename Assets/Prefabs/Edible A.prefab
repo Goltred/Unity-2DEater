@@ -145,7 +145,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b79fb5d96b1e4ebd82470ef83fc772f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FallSpeed: 4
+  fallSpeed: 4
 --- !u!50 &-1223205798940139484
 Rigidbody2D:
   serializedVersion: 4
@@ -185,4 +185,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a919e532ed2e3b4a90d6c5b32062383, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Data: {fileID: 11400000, guid: e78c35f800b1d164c9af9d385068cbdb, type: 2}
+  data: {fileID: 11400000, guid: b561b772e1988bb4bbed6c54421a7922, type: 2}
