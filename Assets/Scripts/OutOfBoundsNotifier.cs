@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 [RequireComponent(typeof(BoxCollider2D))]
@@ -6,7 +5,7 @@ public class OutOfBoundsNotifier : MonoBehaviour
 {
     public GameEventGameObject OnOutOfBounds;
 
-    private void OnTriggerEnter(Collider other)
+    void OnTriggerEnter2D(Collider2D other)
     {
         OnOutOfBounds?.Trigger(other.gameObject);
     }
