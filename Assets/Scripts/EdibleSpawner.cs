@@ -5,14 +5,15 @@ using UnityEngine;
 public class EdibleSpawner : MonoBehaviour
 {
     public List<Edible> ediblePrefabs = new();
-    private Dictionary<int, Stack<Edible>> _prefabPool = new();
     
+    private Dictionary<int, Stack<Edible>> _ediblePool = new();
     private int _ediblesUpperLimit;
     private Vector3 _topRightField;
     private Vector3 _bottomLeftField;
     private Vector3 _outsideField;
-
     private GameSettingsSO _settings;
+
+    private GameObject _ediblesParent;
 
     void Start()
     {
@@ -20,6 +21,8 @@ public class EdibleSpawner : MonoBehaviour
         _topRightField = Camera.main.ViewportToWorldPoint(Vector3.one);
         _outsideField = _topRightField * 2;
         _ediblesUpperLimit = ediblePrefabs.Count - 1;
+
+        _ediblesParent = new GameObject("Edibles");
     }
 
     public void ChangeSettings(GameSettingsSO newSettings)
@@ -38,7 +41,7 @@ public class EdibleSpawner : MonoBehaviour
         var spawnPos = RandomSpawnPosition(choice.GetRenderer());
 
         // To reduce instancing we check if we have an available copy of the edible we want to spawn and use that instead
-        if (_prefabPool.TryGetValue(choice.data.poolId, out var stack) && stack.TryPop(out var recycledPrefab))
+        if (_ediblePool.TryGetValue(choice.data.poolId, out var stack) && stack.TryPop(out var recycledPrefab))
         {
             recycledPrefab.transform.position = spawnPos;
             recycledPrefab.EnableMovement();
@@ -46,7 +49,7 @@ public class EdibleSpawner : MonoBehaviour
         }
         else
         {
-            Instantiate(choice.gameObject, spawnPos, Quaternion.identity);
+            Instantiate(choice.gameObject, spawnPos, Quaternion.identity, _ediblesParent.transform);
         }
     }
 
@@ -64,7 +67,7 @@ public class EdibleSpawner : MonoBehaviour
     // Used from the EventListener to be triggered when an object is out of bounds
     public void RecycleEdible(Edible edible)
     {
-        if (_prefabPool.TryGetValue(edible.data.poolId, out var stack))
+        if (_ediblePool.TryGetValue(edible.data.poolId, out var stack))
         {
             stack.Push(edible);
         }
@@ -72,10 +75,19 @@ public class EdibleSpawner : MonoBehaviour
         {
             var newStack = new Stack<Edible>();
             newStack.Push(edible);
-            _prefabPool[edible.data.poolId] = newStack;
+            _ediblePool[edible.data.poolId] = newStack;
         }
         
         edible.DisableMovement();
         edible.transform.position = _outsideField;
+    }
+
+    // Used from the EventListener to do cleanup when the game finishes
+    public void GameOver(int _)
+    {
+        DestroyImmediate(_ediblesParent);
+        _ediblesParent = new GameObject("Edibles");
+        // Remember to cleanup the pool as well
+        _ediblePool.Clear();
     }
 }
