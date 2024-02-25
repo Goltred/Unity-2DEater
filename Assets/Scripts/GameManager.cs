@@ -82,6 +82,6 @@ public class GameManager : MonoBehaviour
     // Called through the event system
     public void EdibleEaten(Edible edible)
     {
-        playerPoints += edible.data.points;
+        playerPoints += edible.points;
     }
 }
