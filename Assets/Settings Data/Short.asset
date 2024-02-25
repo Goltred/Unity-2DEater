@@ -15,5 +15,5 @@ MonoBehaviour:
   levelTime: 5
   minSpawnTime: 0.1
   maxSpawnTime: 0.5
-  minEdibleSpeed: 7
-  maxEdibleSpeed: 9
+  minEdibleSpeed: 0.2
+  maxEdibleSpeed: 4
