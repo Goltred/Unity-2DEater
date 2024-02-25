@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -8,7 +9,11 @@ public class PlayerController : MonoBehaviour
 {
     public float movementSpeed = 5f;
     public GameEventEdible onEdibleEaten;
-    
+
+    public AudioSource feetAudioSource;
+    public AudioSource mouthAudioSource;
+    public List<AudioClip> eatingSfx;
+
     private Vector2 _input;
     private SpriteRenderer _spriteRenderer;
     private PlayerInput _playerInput;
@@ -22,7 +27,7 @@ public class PlayerController : MonoBehaviour
         _spriteRenderer = GetComponent<SpriteRenderer>();
         _playerInput = GetComponent<PlayerInput>();
         _animator = GetComponent<Animator>();
-        
+
         // Used for calculating out of world bounds
         _spriteHalfSize = _spriteRenderer.bounds.size.x / 2;
         _minXWorldPos = Camera.main.ViewportToWorldPoint(Vector3.zero).x + _spriteHalfSize;
@@ -40,10 +45,13 @@ public class PlayerController : MonoBehaviour
         if (_input.magnitude == 0)
         {
             _animator.SetBool("Moving", false);
+            feetAudioSource.Stop();
             return;
         }
-
+        
         _animator.SetBool("Moving", true);
+        if (!feetAudioSource.isPlaying)
+            feetAudioSource.Play();
         
         // We want the character to look in the direction of movement
         _spriteRenderer.flipX = _input.x < 0;
@@ -69,7 +77,10 @@ public class PlayerController : MonoBehaviour
         // We only want to trigger the event when the other collision is an Edible.
         // This prepares us for the future in case we add other types that need to trigger different events
         if (col.gameObject.TryGetComponent<Edible>(out var edible))
+        {
             onEdibleEaten?.Trigger(edible);
+            mouthAudioSource.PlayOneShot(eatingSfx.PickRandom());
+        }
     }
 
     public void GameOver(int _)

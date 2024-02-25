@@ -32,12 +32,8 @@ public class EdibleSpawner : MonoBehaviour
 
     public void Spawn()
     {
-        // In order to offer randomness we pick the next edible randomly
-        var randomIndex = Mathf.Clamp(Random.Range(0, _ediblesUpperLimit), 0, _ediblesUpperLimit);
-        var choice = edibleData.Skip(randomIndex).Take(1).FirstOrDefault();
-
+        var choice = edibleData.PickRandom();
         var randomSpeed = Random.Range(_settings.minEdibleSpeed, _settings.maxEdibleSpeed);
-        
         var spawnPos = RandomSpawnPosition(choice.sprite);
 
         // To reduce instancing we check if we have an available copy of the edible we want to spawn and use that instead
