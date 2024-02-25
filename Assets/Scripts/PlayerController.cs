@@ -3,13 +3,16 @@ using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(SpriteRenderer))]
 [RequireComponent(typeof(PlayerInput))]
+[RequireComponent(typeof(Animator))]
 public class PlayerController : MonoBehaviour
 {
     public float movementSpeed = 5f;
     public GameEventEdible onEdibleEaten;
+    
     private Vector2 _input;
     private SpriteRenderer _spriteRenderer;
     private PlayerInput _playerInput;
+    private Animator _animator;
     private float _spriteHalfSize;
     private float _leftEdgeWorldPos;
     private float _rightEdgeWorldPos;
@@ -18,6 +21,8 @@ public class PlayerController : MonoBehaviour
     {
         _spriteRenderer = GetComponent<SpriteRenderer>();
         _playerInput = GetComponent<PlayerInput>();
+        _animator = GetComponent<Animator>();
+        
         // Used for calculating out of world bounds
         _spriteHalfSize = _spriteRenderer.size.x / 2;
         _leftEdgeWorldPos = Camera.main.ViewportToWorldPoint(Vector3.zero).x;
@@ -33,8 +38,14 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         if (_input.magnitude == 0)
+        {
+            _animator.SetBool("Moving", false);
             return;
+        }
         
+        _animator.SetBool("Moving", true);
+        _spriteRenderer.flipX = _input.x < 0;
+
         transform.Translate(_input * movementSpeed * Time.deltaTime);
         
         if (Camera.main.WorldToViewportPoint(_spriteRenderer.bounds.min).x < 0)
