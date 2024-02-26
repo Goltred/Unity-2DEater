@@ -11,6 +11,7 @@ public class PlayableDirectorTimedRestart : MonoBehaviour
 
     void Start()
     {
+        // Remember to set the initial _timer value so that we don't end up restarting the playaable twice
         _timer = restartTime;
     }
     void Update()

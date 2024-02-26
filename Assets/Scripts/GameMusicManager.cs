@@ -5,6 +5,7 @@ using UnityEngine;
 [RequireComponent(typeof(AudioSource))]
 public class GameMusicManager : MonoBehaviour
 {
+    [Header("Background music tracks")]
     public List<AudioClip> preGameTracks;
     public List<AudioClip> inGameTracks;
     public List<AudioClip> gameOverTracks;
@@ -38,17 +39,20 @@ public class GameMusicManager : MonoBehaviour
     void Update()
     {
         if (_fadeOut)
-        {
-            _fadeOutEllapsedTime += Time.deltaTime;
-            var step = _fadeOutEllapsedTime / _fadeOutduration;
-            _audioSource.volume = Mathf.Lerp(_originalSourceVolume, 0, step);
-        }
-        
+            FadeOutStep();
+
         // When our queue is active and the music has finished, we need to move on to the next track
         if (_queueActive && !_audioSource.isPlaying)
         {
             NextTrack();
         }
+    }
+
+    void FadeOutStep()
+    {
+        _fadeOutEllapsedTime += Time.deltaTime;
+        var step = _fadeOutEllapsedTime / _fadeOutduration;
+        _audioSource.volume = Mathf.Lerp(_originalSourceVolume, 0, step);
     }
 
     private void NextTrack()
@@ -63,6 +67,7 @@ public class GameMusicManager : MonoBehaviour
         
     }
     
+    // Hooked up to the GameOpen event, allowing the manager to play music in the main menu
     public void PreGame()
     {
         _audioSource.Stop();
@@ -98,6 +103,7 @@ public class GameMusicManager : MonoBehaviour
         SetupQueue(gameOverTracks);
     }
 
+    // Shuffle the tracks in the provided list and then reset the music queue with it.
     private void SetupQueue(List<AudioClip> trackSource)
     {
         _musicQueue = new (trackSource.OrderBy(t => _random.Next()));

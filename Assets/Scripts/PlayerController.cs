@@ -7,12 +7,17 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(Animator))]
 public class PlayerController : MonoBehaviour
 {
+    [Header("Player Settings")]
     public float movementSpeed = 5f;
+    
     public GameEventEdible onEdibleEaten;
     
+    [Header("Sound Effects")]
+    // We want to have more than one audio source to be able to play steps AND the eating SFX at the same time
     public AudioSource mouthAudioSource;
     public List<AudioClip> eatingSfx;
 
+    // Used for calculating out of world bounds
     private Vector2 _input;
     private SpriteRenderer _spriteRenderer;
     private PlayerInput _playerInput;
@@ -26,8 +31,7 @@ public class PlayerController : MonoBehaviour
         _spriteRenderer = GetComponent<SpriteRenderer>();
         _playerInput = GetComponent<PlayerInput>();
         _animator = GetComponent<Animator>();
-
-        // Used for calculating out of world bounds
+        
         _spriteHalfSize = _spriteRenderer.bounds.size.x / 2;
         _minXWorldPos = Camera.main.ViewportToWorldPoint(Vector3.zero).x + _spriteHalfSize;
         _maxXWorldPos = Camera.main.ViewportToWorldPoint(Vector3.one).x - _spriteHalfSize;
@@ -54,13 +58,13 @@ public class PlayerController : MonoBehaviour
         _spriteRenderer.flipX = _input.x < 0;
 
         var movement = CalculateMovementWithinPlayArea();
-        
         transform.Translate(movement);
     }
 
     private Vector3 CalculateMovementWithinPlayArea()
     {
-        // Prevent the player from moving outside the viewport area
+        // Precalculate the player position if we were to apply the input so that we don't rubber band the object
+        // with double translations
         var movement = new Vector3(_input.x * movementSpeed * Time.deltaTime, 0, 0);
         var nextPos = transform.position + movement;
         
@@ -97,11 +101,13 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    // Hooked up to the Game Over event to stop the player input from affecting the character
     public void GameOver(int _)
     {
         _playerInput.enabled = false;
     }
 
+    // Hooked up to the Start Game event to allow player movement.
     public void StartGame(int _)
     {
         _playerInput.enabled = true;

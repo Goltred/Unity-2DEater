@@ -2796,7 +2796,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3535a8abe7ead324b9574ffbe0932646, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameSettings: {fileID: 11400000, guid: e298837e99fd7924eb0b0b58a7b4fd3f, type: 2}
+  gameSettings: {fileID: 11400000, guid: 89540366325d87f4eb9e856ab6ce8471, type: 2}
   onSpawnEvent: {fileID: 11400000, guid: 35c648f4aa262e5469511d44f4875d37, type: 2}
   onGameSettingsChangeEvent: {fileID: 11400000, guid: 06183c0c3e6afb543968ed1b1cfd1b25, type: 2}
   onPointsUpdateEvent: {fileID: 11400000, guid: 5ec8f07373ef459419dbf96858c7c8f4, type: 2}

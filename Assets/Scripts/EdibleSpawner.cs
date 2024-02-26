@@ -4,14 +4,18 @@ using UnityEngine;
 
 public class EdibleSpawner : MonoBehaviour
 {
+    [Tooltip("Food data containing gameplay information like points and their assigned sprite")]
     public List<EdibleData> edibleData = new();
     public GameObject ediblePrefab;
     
+    // Used for the pooling system
     private Dictionary<int, Stack<Edible>> _ediblePool = new();
-    private int _ediblesUpperLimit;
+    
+    // Used to calculate the play area
     private Vector3 _topRightField;
     private Vector3 _bottomLeftField;
     private Vector3 _outsideField;
+    
     private GameSettingsSO _settings;
 
     // Used to organize spawned edibles and make it easy to delete all of them on GameOver
@@ -22,7 +26,6 @@ public class EdibleSpawner : MonoBehaviour
         _bottomLeftField = Camera.main.ViewportToWorldPoint(Vector3.zero);
         _topRightField = Camera.main.ViewportToWorldPoint(Vector3.one);
         _outsideField = _topRightField * 2;
-        _ediblesUpperLimit = edibleData.Count - 1;
     }
 
     public void ChangeSettings(GameSettingsSO newSettings)
@@ -30,6 +33,7 @@ public class EdibleSpawner : MonoBehaviour
         _settings = newSettings;
     }
 
+    // Spawn a new random food object inside the play area
     public void Spawn()
     {
         var choice = edibleData.PickRandom();

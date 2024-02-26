@@ -1,7 +1,9 @@
 using UnityEngine;
 
-// When spawning edibles we need to make sure a SpriteRenderer is there, so setup requirements here to not
-// end up with null references down the line
+/// <summary>
+/// When spawning edibles we need to make sure a SpriteRenderer is there, so setup requirements here to not
+/// end up with null references down the line
+/// </summary>
 [RequireComponent(typeof(SpriteRenderer))]
 [RequireComponent(typeof(Collider2D))]
 [RequireComponent(typeof(Rigidbody2D))]
@@ -21,6 +23,7 @@ public class Edible : MonoBehaviour
         _spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
+    // Reset the gameobject settings based on the incoming data
     public void Configure(EdibleData data)
     {
         _data = data;

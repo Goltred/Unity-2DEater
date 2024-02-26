@@ -7,12 +7,19 @@ public class GameManager : MonoBehaviour
     public GameSettingsSO gameSettings;
     
     [Header("Game Events")]
+    [Tooltip("Triggered when the spawn timer runs out, notifying others that food needs to be spawned")]
     public GameEventEmpty onSpawnEvent;
+    [Tooltip("Triggered when the game is starting to allow listeners to react to settings changes. The event includes the GameSettingsSO data")]
     public GameEventGameSettings onGameSettingsChangeEvent;
+    [Tooltip("Triggered when points have been updated. The event includes the current points of the player")]
     public GameEventInt onPointsUpdateEvent;
+    [Tooltip("Triggered every 1 second. The event includes the remaining time left in the level")]
     public GameEventInt onUITimerEvent;
+    [Tooltip("Triggered when the level timer runs out. The event includes the current points of the player")]
     public GameEventInt onGameOverEvent;
+    [Tooltip("Triggered when the StartGame() method is called. The event includes the time left in the level")]
     public GameEventInt onStartGameEvent;
+    [Tooltip("Triggered when the level timer has a set amount of seconds left. This includes the number of seconds until the timer runs out")]
     public GameEventInt onCountdownEvent;
 
     private float _levelTimer;
@@ -23,8 +30,6 @@ public class GameManager : MonoBehaviour
     
     // Used to make sure we only fire the event once
     private bool _countdownEventFired;
-
-    private AudioSource _audioSource;
 
     public int playerPoints
     {
@@ -38,9 +43,9 @@ public class GameManager : MonoBehaviour
 
     private int _playerPoints;
 
+    // We want to make sure we do start the game once this object is created
     void Start()
     {
-        _audioSource = GetComponent<AudioSource>();
         StartGame();
     }
 
@@ -54,10 +59,10 @@ public class GameManager : MonoBehaviour
         onGameSettingsChangeEvent?.Trigger(gameSettings);
         _finished = false;
     }
-
-    // Update is called once per frame
+    
     void Update()
     {
+        // Exit early if we are not actively playing
         if (_finished)
             return;
         
@@ -71,6 +76,7 @@ public class GameManager : MonoBehaviour
             RestartSpawnTimer();
         }
 
+        // We trigger this every one second to allow listeners to update themselves if required (e.g. UI system)
         if (_uiTimer <= 0)
         {
             onUITimerEvent?.Trigger(_levelTimerInt);
@@ -83,6 +89,8 @@ public class GameManager : MonoBehaviour
             onGameOverEvent?.Trigger(_playerPoints);
         }
 
+        // Hook up our countdown event here based on the desired settings. This allows other systems
+        // to perform their actions in the configured time
         if (!_countdownEventFired && _levelTimer <= gameSettings.countdownEventSeconds)
         {
             onCountdownEvent?.Trigger(gameSettings.countdownEventSeconds);
