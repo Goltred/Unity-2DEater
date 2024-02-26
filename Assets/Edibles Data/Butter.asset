@@ -13,5 +13,7 @@ MonoBehaviour:
   m_Name: Butter
   m_EditorClassIdentifier: 
   poolId: 6
-  points: 1
+  points: 3
   sprite: {fileID: 1518919054, guid: 144b518de74445b4cbe52529ce2fd961, type: 3}
+  minScaleModifier: 0.68
+  maxScaleModifier: 0.85

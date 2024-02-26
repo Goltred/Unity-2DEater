@@ -15,3 +15,5 @@ MonoBehaviour:
   poolId: 5
   points: 1
   sprite: {fileID: -356937743, guid: 144b518de74445b4cbe52529ce2fd961, type: 3}
+  minScaleModifier: 0.95
+  maxScaleModifier: 1.15

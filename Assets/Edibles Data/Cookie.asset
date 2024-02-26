@@ -9,9 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 0}
+  m_Script: {fileID: 11500000, guid: 5164b4d5add04c7094c85ffb8f36c5ef, type: 3}
   m_Name: Cookie
   m_EditorClassIdentifier: Assembly-CSharp::EdibleData
   poolId: 0
   points: 1
   sprite: {fileID: -603115604, guid: 144b518de74445b4cbe52529ce2fd961, type: 3}
+  minScaleModifier: 0.75
+  maxScaleModifier: 1

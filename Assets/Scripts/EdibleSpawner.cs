@@ -4,14 +4,18 @@ using UnityEngine;
 
 public class EdibleSpawner : MonoBehaviour
 {
+    [Tooltip("Food data containing gameplay information like points and their assigned sprite")]
     public List<EdibleData> edibleData = new();
     public GameObject ediblePrefab;
     
+    // Used for the pooling system
     private Dictionary<int, Stack<Edible>> _ediblePool = new();
-    private int _ediblesUpperLimit;
+    
+    // Used to calculate the play area
     private Vector3 _topRightField;
     private Vector3 _bottomLeftField;
     private Vector3 _outsideField;
+    
     private GameSettingsSO _settings;
 
     // Used to organize spawned edibles and make it easy to delete all of them on GameOver
@@ -22,7 +26,6 @@ public class EdibleSpawner : MonoBehaviour
         _bottomLeftField = Camera.main.ViewportToWorldPoint(Vector3.zero);
         _topRightField = Camera.main.ViewportToWorldPoint(Vector3.one);
         _outsideField = _topRightField * 2;
-        _ediblesUpperLimit = edibleData.Count - 1;
     }
 
     public void ChangeSettings(GameSettingsSO newSettings)
@@ -30,14 +33,11 @@ public class EdibleSpawner : MonoBehaviour
         _settings = newSettings;
     }
 
+    // Spawn a new random food object inside the play area
     public void Spawn()
     {
-        // In order to offer randomness we pick the next edible randomly
-        var randomIndex = Mathf.Clamp(Random.Range(0, _ediblesUpperLimit), 0, _ediblesUpperLimit);
-        var choice = edibleData.Skip(randomIndex).Take(1).FirstOrDefault();
-
+        var choice = edibleData.PickRandom();
         var randomSpeed = Random.Range(_settings.minEdibleSpeed, _settings.maxEdibleSpeed);
-        
         var spawnPos = RandomSpawnPosition(choice.sprite);
 
         // To reduce instancing we check if we have an available copy of the edible we want to spawn and use that instead

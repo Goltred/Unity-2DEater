@@ -13,5 +13,7 @@ MonoBehaviour:
   m_Name: Bacon
   m_EditorClassIdentifier: 
   poolId: 2
-  points: 1
+  points: 2
   sprite: {fileID: 1114816906, guid: 144b518de74445b4cbe52529ce2fd961, type: 3}
+  minScaleModifier: 0.8
+  maxScaleModifier: 0.9
