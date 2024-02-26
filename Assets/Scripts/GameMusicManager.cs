@@ -24,7 +24,7 @@ public class GameMusicManager : MonoBehaviour
     private float _fadeOutEllapsedTime;
     private float _originalSourceVolume;
 
-    void Start()
+    void Awake()
     {
         _audioSource = GetComponent<AudioSource>();
         _originalSourceVolume = _audioSource.volume;
