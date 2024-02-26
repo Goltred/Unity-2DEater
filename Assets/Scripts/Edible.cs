@@ -25,6 +25,9 @@ public class Edible : MonoBehaviour
     {
         _data = data;
         _spriteRenderer.sprite = data.sprite;
+
+        var targetScaleModifier = Random.Range(data.minScaleModifier, data.maxScaleModifier);
+        transform.localScale *= targetScaleModifier;
     }
 
     public void SetFallSpeed(float speed)

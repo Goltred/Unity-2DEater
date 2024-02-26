@@ -37,25 +37,30 @@ public class PlayerController : MonoBehaviour
     // Assigned in the PlayerInput controller in the inspector
     public void OnMove(InputAction.CallbackContext context)
     {
-        _input = context.ReadValue<Vector2>();
+        if (context.started || context.canceled)
+            _input = context.ReadValue<Vector2>();
     }
 
     void Update()
     {
         if (_input.magnitude == 0)
         {
-            _animator.SetBool("Moving", false);
-            feetAudioSource.Stop();
+            StopMovementFX();    
             return;
         }
         
-        _animator.SetBool("Moving", true);
-        if (!feetAudioSource.isPlaying)
-            feetAudioSource.Play();
+        StartMovementFX();
         
         // We want the character to look in the direction of movement
         _spriteRenderer.flipX = _input.x < 0;
 
+        var movement = CalculateMovementWithinPlayArea();
+        
+        transform.Translate(movement);
+    }
+
+    private Vector3 CalculateMovementWithinPlayArea()
+    {
         // Prevent the player from moving outside the viewport area
         var movement = new Vector3(_input.x * movementSpeed * Time.deltaTime, 0, 0);
         var nextPos = transform.position + movement;
@@ -68,8 +73,21 @@ public class PlayerController : MonoBehaviour
         {
             movement.x = _maxXWorldPos - transform.position.x;
         }
-        
-        transform.Translate(movement);
+
+        return movement;
+    }
+
+    private void StopMovementFX()
+    {
+        _animator.SetBool("Moving", false);
+        feetAudioSource.Stop();
+    }
+
+    private void StartMovementFX()
+    {
+        _animator.SetBool("Moving", true);
+        if (!feetAudioSource.isPlaying)
+            feetAudioSource.Play();
     }
 
     private void OnTriggerEnter2D(Collider2D col)

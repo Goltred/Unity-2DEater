@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Short
   m_EditorClassIdentifier: 
   levelTime: 5
+  countdownEventSeconds: 3
   minSpawnTime: 0.1
   maxSpawnTime: 0.5
   minEdibleSpeed: 0.2
