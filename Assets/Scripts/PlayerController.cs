@@ -9,8 +9,7 @@ public class PlayerController : MonoBehaviour
 {
     public float movementSpeed = 5f;
     public GameEventEdible onEdibleEaten;
-
-    public AudioSource feetAudioSource;
+    
     public AudioSource mouthAudioSource;
     public List<AudioClip> eatingSfx;
 
@@ -80,14 +79,11 @@ public class PlayerController : MonoBehaviour
     private void StopMovementFX()
     {
         _animator.SetBool("Moving", false);
-        feetAudioSource.Stop();
     }
 
     private void StartMovementFX()
     {
         _animator.SetBool("Moving", true);
-        if (!feetAudioSource.isPlaying)
-            feetAudioSource.Play();
     }
 
     private void OnTriggerEnter2D(Collider2D col)

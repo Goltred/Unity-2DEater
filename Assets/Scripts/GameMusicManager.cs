@@ -29,6 +29,10 @@ public class GameMusicManager : MonoBehaviour
         _audioSource = GetComponent<AudioSource>();
         _originalSourceVolume = _audioSource.volume;
         _random = new System.Random();
+        
+        // We want this manager to be configured once in the main scene and then be reused, so make sure we are
+        // not destroying it
+        DontDestroyOnLoad(this);
     }
     
     void Update()
